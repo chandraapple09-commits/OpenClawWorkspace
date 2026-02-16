@@ -1,0 +1,32 @@
+async def on_button_click(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    query = update.callback_query
+    await query.answer()
+
+    data = query.data
+    user_id = query.from_user.id
+
+    # 🔍 Search requested
+    if data == "SEARCH":
+        SEARCH_MODE.add(user_id)
+        await query.message.reply_text(
+            "🔍 Type stock name (example: tata, adani, reliance)"
+        )
+        return
+
+    # Pagination
+    if data.startswith("PAGE:"):
+        page = int(data.split(":")[1])
+        await query.edit_message_reply_markup(
+            reply_markup=build_stock_keyboard(page)
+        )
+        return
+
+    # Stock selected
+    if data.startswith("STOCK:"):
+        symbol = data.split(":")[1]
+        result = handle_stock_query(symbol)
+        trend = trend_prediction(symbol)
+
+        await query.message.reply_text(
+            f"{result}\n\n🧠 Trend: {trend}"
+        )

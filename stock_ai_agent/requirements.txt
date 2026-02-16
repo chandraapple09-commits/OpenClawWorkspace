@@ -1,5 +1,5 @@
-python-telegram-bot==20.7
-pandas
-numpy
+python-telegram-bot[job-queue]
 yfinance
 matplotlib
+scikit-learn
+pytz

@@ -1,0 +1,32 @@
+def build_stock_keyboard(page=0, stocks=None):
+    symbols = stocks if stocks else list(STOCKS.keys())
+
+    start = page * PAGE_SIZE
+    end = start + PAGE_SIZE
+
+    keyboard = []
+
+    # 🔍 Search button
+    keyboard.append(
+        [InlineKeyboardButton("🔍 Search Stock", callback_data="SEARCH")]
+    )
+
+    for sym in symbols[start:end]:
+        keyboard.append(
+            [InlineKeyboardButton(sym, callback_data=f"STOCK:{sym}")]
+        )
+
+    nav_buttons = []
+    if start > 0:
+        nav_buttons.append(
+            InlineKeyboardButton("⬅ Prev", callback_data=f"PAGE:{page-1}")
+        )
+    if end < len(symbols):
+        nav_buttons.append(
+            InlineKeyboardButton("Next ➡", callback_data=f"PAGE:{page+1}")
+        )
+
+    if nav_buttons:
+        keyboard.append(nav_buttons)
+
+    return InlineKeyboardMarkup(keyboard)

@@ -32,4 +32,3 @@ def search_stock(query: str):
             results.append(f"{symbol} ({name})")
 
     return results[:10]   # limit to 10 results
-
