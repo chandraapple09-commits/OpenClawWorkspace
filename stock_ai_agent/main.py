@@ -6,7 +6,7 @@ import asyncio
 from telegram import Update
 from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
 
-TOKEN = os.getenv("8466480154:AAFwBaOlbRYkRTLzPKxVjlC4COtT94_r_TE")
+TOKEN = os.getenv("token")
 
 logging.basicConfig(level=logging.INFO)
 
